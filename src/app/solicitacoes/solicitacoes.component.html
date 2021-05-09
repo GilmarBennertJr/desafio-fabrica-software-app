@@ -1,0 +1,95 @@
+<div class="mt-5">
+    <h1 class="h4">Lista de Solicitação</h1>
+</div>
+
+<div class="p-2 bg-light" style="border-radius: 5px;" *ngIf="isAdministrativo">
+    <form [formGroup]="FilterForm">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <label>Solicitante</label>
+                <input type="text" class="form-control" formControlName="solicitante" placeholder="Identificação do solicitante do produto">
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <label>Descrição do Item</label>
+                <input type="text" class="form-control" formControlName="descricaoProduto" placeholder="Identificação do produto para solicitar">
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <label>Status</label>
+                <select class="form-select" formControlName="status">
+                    <option value="">Todos</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Aprovado">Aprovado</option>
+                    <option value="Reprovado">Reprovado</option>
+                </select>        
+            </div>
+            <div class="col-sm-12 text-align-right">
+                <button class="btn btn-success" (click)="findByFilter()">
+                    <i class="fas fa-search"></i>
+                    Pesquisar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="mt-5">
+    <div class="row">
+        <div class="col-sm-12 text-center" *ngIf="solicitacoes.length === 0">
+            <p>Não há solicitações a serem demonstradas</p>
+        </div>
+        <div class="col-sm-12 div-scrolling" *ngIf="solicitacoes.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Solicitante</th>
+                        <th>Descrição do item</th>
+                        <th>Preço do Produto</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of solicitacoes">
+                        <td>{{s.solicitante}}</td>
+                        <td>{{s.descricaoProduto}}</td>
+                        <td>{{s.valorProduto | currency: 'BRL': true}}</td>
+                        <td>
+                            <span class="badge bg-success" *ngIf="s.status === 'Aprovado'">{{s.status}}</span>
+                            <span class="badge bg-danger" *ngIf="s.status === 'Reprovado'">{{s.status}}</span>
+                            <span class="badge bg-warning" *ngIf="s.status === 'Pendente'">{{s.status}}</span>
+                        </td>
+                        <td class="text-align-right">
+                            <a class="cursor-pointer" *ngIf="s.id" (click)="openSolicitacao(s.id)">
+                                <i class="fas fa-eye" style="color:#ff8200"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Página {{currentPage + 1}} de {{totalPages}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="nav-pagination">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <button *ngIf="!isFirst" class="btn btn-info cursor-pointer" aria-label="Previous" (click)="previousPage()">
+                              <span aria-hidden="true">&laquo;</span>
+                              Página Anterior
+                            </button>
+                          </li>
+                          <li class="page-item">
+                            <button *ngIf="!isLast" class="btn btn-info cursor-pointer" aria-label="Next" (click)="nextPage()">
+                                Próxima Página
+                              <span aria-hidden="true">&raquo;</span>
+                            </button>
+                          </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

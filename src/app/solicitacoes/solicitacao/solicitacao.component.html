@@ -1,0 +1,50 @@
+<div class="mt-5">
+    <h1 class="h4">{{solicitacao.id ? 'Aprovação de Solicitação' : 'Nova Solicitação'}}</h1>
+    
+    <form [formGroup]="solicitacaoForm">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Solicitante</label>
+                <input type="text" class="form-control" placeholder="Identificação do solicitante do produto" formControlName="solicitante" [readonly]="solicitacao.id">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-8">
+                <label>Descrição do Produto</label>
+                <input type="text" class="form-control" placeholder="Identificação do produto para solicitar" formControlName="descricaoProduto" [readonly]="solicitacao.id">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <label>Valor do Produto</label>
+                <input currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" type="text" class="form-control" placeholder="R$ 00,00" formControlName="valorProduto" [readonly]="solicitacao.id">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row" *ngIf="solicitacao.id">
+            <div class="col-md-12">
+                <label>Status</label>
+                <select class="form-select" formControlName="status">
+                    <option value="Aprovado">Aprovar</option>
+                    <option value="Reprovado">Reprovar</option>
+                </select>
+            </div>
+            <div class="col-md-12" *ngIf="solicitacaoForm.value.status === 'Reprovado'">
+                <label>Observações</label>
+                <textarea class="form-control" placeholder="Observação de motivo de reprovação" formControlName="observacao"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-align-right">
+                <button class="btn btn-success" type="button" [disabled]="!solicitacaoForm.valid" (click)="solicitarItem(solicitacaoForm.value)" *ngIf="!solicitacao.id">
+                    Solicitar Item
+                </button>
+                <button class="btn btn-success" type="button" [disabled]="
+                    solicitacaoForm.value.status === 'Pendente' || 
+                    solicitacaoForm.value.status === 'Reprovado' && !solicitacaoForm.value.observacao" 
+                    (click)="salvarItem(solicitacaoForm.value)" *ngIf="solicitacao.id">
+                    Salvar Solicitação
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

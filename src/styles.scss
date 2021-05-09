@@ -1,0 +1,81 @@
+/* You can add global styles to this file, and also import other style files */
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "variables";
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 320px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px
+);
+
+$theme-colors: (
+  "primary": $green,
+  "secondary": $orange,
+  "info": $purple,
+  "success": $green,
+  "warning": $orange,
+  "danger": $red,
+  "light": $gray-6,
+  "dark": $gray-1
+);
+
+$font-family-base: $font-family-default;
+
+$navbar-light-active-color: $red;
+
+html, body {    
+  height: 100%;
+}
+
+#home {
+  height: 85%
+}
+
+.bg-home {
+  background: url(../src/assets/images/capa.png),                                
+              linear-gradient(90deg, $gray-1, $green);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;                
+  background-attachment: fixed;
+  height: 100%;
+  text-shadow: 2px 2px 1px #172601;
+}
+
+.btn {
+  color: white !important
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+form div.row div {
+  margin-top: 15px;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.nav-link {
+  color: white !important
+}
+
+.nav-item.active .nav-link{
+  color: $purple !important;
+  font-weight: bold;
+}
+
+.div-scrolling {
+  overflow: auto;
+  width: 100%;
+}
+
+@import "node_modules/bootstrap/scss/bootstrap";

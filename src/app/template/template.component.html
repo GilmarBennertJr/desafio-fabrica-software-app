@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">       
+    <a class="navbar-brand m-2" [routerLink]="['/']">
+        <img src="../../assets/images/logo-senior.svg" class="d-inline-block align-top" alt="">
+    </a>
+
+    <button class="navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav p-2">
+            <li class="nav-item" *ngFor="let m of menus" [ngClass]="{'active':m.url === routeUrl}">
+                <a class="nav-link" [routerLink]="[m.url]">{{m.label}}</a>
+            </li>
+        </ul>   
+    </div>
+</nav>
+
+<main class="container">
+    <router-outlet></router-outlet>
+</main>
